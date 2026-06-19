@@ -15,9 +15,23 @@ export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSlide, setActiveSlide] = useState(0);
 
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const filteredProducts = products.filter((p) => {
+    if (!normalizedQuery) return true;
+    return (
+      p.name.toLowerCase().includes(normalizedQuery) ||
+      p.category.toLowerCase().includes(normalizedQuery)
+    );
+  });
+
   // Handle Carousel indicator dot changes
   const handleScroll = (event: any) => {
-    const slide = Math.ceil(event.nativeEvent.contentOffset.x / (width - 32));
+    const pageWidth = width - 32;
+    const rawIndex = event.nativeEvent.contentOffset.x / pageWidth;
+    const slide = Math.min(
+      CAROUSEL_OFFERS.length - 1,
+      Math.max(0, Math.round(rawIndex))
+    );
     if (slide !== activeSlide) setActiveSlide(slide);
   };
 
@@ -90,28 +104,28 @@ export default function HomeScreen() {
       {/* 1. NEW ARRIVALS */}
       <ProductRowSection
         title="New Arrivals"
-        items={products.filter(p => p.isNew)}
-        badgeCount={products.filter(p => p.isNew).length}
+        items={filteredProducts.filter(p => p.isNew)}
+        badgeCount={filteredProducts.filter(p => p.isNew).length}
       />
 
       {/* 2. ON SALE (Updated to use isDiscounted property!) */}
       <ProductRowSection
         title="On Sale"
-        items={products.filter(p => p.isDiscounted)}
+        items={filteredProducts.filter(p => p.isDiscounted)}
         promoLabel="Up to 40% OFF"
       />
 
       {/* 3. TRENDING NOW */}
       <ProductRowSection
         title="Trending Now"
-        items={products.filter(p => p.isTrending)}
+        items={filteredProducts.filter(p => p.isTrending)}
         isHot={true}
       />
 
       {/* 4. MOST VIEWED (Sorts items beautifully based on views) */}
       <ProductRowSection
         title="Most Viewed"
-        items={[...products].sort((a, b) => b.views - a.views)}
+        items={[...filteredProducts].sort((a, b) => b.views - a.views)}
       />
 
       {/* Padding space at bottom so navigation doesn't block the last elements */}

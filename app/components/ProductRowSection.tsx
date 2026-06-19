@@ -17,7 +17,7 @@ export default function ProductRowSection({ title, items, badgeCount, promoLabel
       <View className="px-4 flex-row justify-between items-center mb-4">
         <View className="flex-row items-center">
           <Text className="text-lg font-bold text-gray-900">{title}</Text>
-          {badgeCount && (
+          {typeof badgeCount === 'number' && badgeCount > 0 && (
             <View className="bg-blue-50 px-2 py-0.5 rounded-full ml-2 border border-blue-100">
               <Text className="text-blue-600 text-xs font-bold">{badgeCount}</Text>
             </View>
