@@ -1,21 +1,18 @@
-import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { View } from 'react-native';
-// 1. Import the safe area hook
+import { Text, View } from 'react-native';
+// 1. Switch import from Ionicons to Feather
+import { Feather } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TabsLayout() {
-  // 2. Grab the exact system insets for the current device
   const insets = useSafeAreaInsets();
   
-  const primaryOrange = '#FF6F00';
-  const inactiveGray = '#8E8E93';
+  // 2. Color adjustments to match the image perfectly
+  const activeBlue = '#0066FF'; // Vibrant Sapphire Blue
+  const inactiveGray = '#4A5568'; // Darker Slate Gray
   const tabBgColor = '#FFFFFF'; 
-  const borderColor = '#E9ECEF';
+  const borderColor = '#E2E8F0';
 
-  // 3. Calculate a dynamic height based on the bottom inset
-  // If the phone has a software bar (like yours), insets.bottom will be large.
-  // If it's a completely flat screen, we provide a standard fallback padding.
   const dynamicPaddingBottom = insets.bottom > 0 ? insets.bottom : 12;
   const dynamicTabHeight = 56 + dynamicPaddingBottom; 
 
@@ -23,27 +20,26 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: primaryOrange,
+        tabBarActiveTintColor: activeBlue,
         tabBarInactiveTintColor: inactiveGray,
         tabBarStyle: {
           backgroundColor: tabBgColor,
           borderTopColor: borderColor,
           borderTopWidth: 1,
-          
-          // 4. Inject our smart dynamic heights here
           height: dynamicTabHeight,
           paddingBottom: dynamicPaddingBottom,
           paddingTop: 8,
-          
-          elevation: 8,
+          // Subtle drop shadow matching the clean style
+          elevation: 4,
           shadowColor: '#000',
-          shadowOffset: { width: 0, height: -2 },
-          shadowOpacity: 0.05,
-          shadowRadius: 10,
+          shadowOffset: { width: 0, height: -1 },
+          shadowOpacity: 0.03,
+          shadowRadius: 8,
         },
         tabBarLabelStyle: {
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: '500',
+          marginTop: 2,
         },
       }}
     >
@@ -52,8 +48,8 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'home' : 'home-outline'} size={24} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Feather name="home" size={22} color={color} />
           ),
         }}
       />
@@ -63,47 +59,38 @@ export default function TabsLayout() {
         name="explore"
         options={{
           title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'search' : 'search-outline'} size={24} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Feather name="compass" size={22} color={color} />
           ),
         }}
       />
 
-      {/* 3. PRINT STUDIO (CENTER UPLOAD BUTTON) */}
+      {/* 3. UPLOAD TAB */}
       <Tabs.Screen
         name="upload"
         options={{
-          title: 'Print',
-          tabBarIcon: ({ focused }) => (
-            <View 
-              className={`
-                items-center justify-center w-14 h-14 rounded-full shadow-md
-                ${focused ? 'bg-amber-700' : 'bg-[#FF6F00]'}
-              `}
-              // We adjust the breakout height relative to the dynamic height
-              style={{
-                marginTop: insets.bottom > 0 ? -24 : -16,
-                shadowColor: primaryOrange,
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.3,
-                shadowRadius: 5,
-                elevation: 5,
-              }}
-            >
-              <Ionicons name="add" size={30} color="#FFFFFF" />
-            </View>
+          title: 'Upload',
+          tabBarIcon: ({ color }) => (
+            <Feather name="upload" size={22} color={color} />
           ),
-          tabBarLabel: () => null, 
         }}
       />
 
-      {/* 4. CART TAB */}
+      {/* 4. CART TAB WITH COUNTER BADGE */}
       <Tabs.Screen
         name="cart"
         options={{
           title: 'Cart',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'cart' : 'cart-outline'} size={24} color={color} />
+          tabBarIcon: ({ color }) => (
+            <View className="items-center justify-center">
+              <Feather name="shopping-cart" size={22} color={color} />
+              {/* This text element accurately places the item count 
+                directly underneath the icon basket just like your screenshot!
+              */}
+              <Text style={{ color }} className="text-[11px] font-bold mt-0.5 leading-none">
+                0
+              </Text>
+            </View>
           ),
         }}
       />
@@ -113,8 +100,8 @@ export default function TabsLayout() {
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'person' : 'person-outline'} size={24} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Feather name="user" size={22} color={color} />
           ),
         }}
       />
