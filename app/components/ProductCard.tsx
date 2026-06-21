@@ -81,7 +81,7 @@ export default function ProductCard({ product }: { product: any }) {
           </View>
           
           {/* Modern Add Button */}
-          <TouchableOpacity className="bg-white dark:bg-primary px-3.5 py-2 border border-primary dark rounded-[6px] flex-row items-center">
+          <TouchableOpacity className="bg-white dark:bg-primary px-3.5 py-2 border border-primary rounded-[6px] flex-row items-center">
             <Feather name="shopping-cart" size={13} color={isDark ? 'black' : "#FF7518"} />
             <Text className="text-primary dark:text-black font-bold text-xs ml-2">Add</Text>
           </TouchableOpacity>

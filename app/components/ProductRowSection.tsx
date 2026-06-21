@@ -9,9 +9,10 @@ type ProductRowSectionProps = {
   badgeCount?: number;
   promoLabel?: string;
   isHot?: boolean;
+  onViewAllPress?: () => void;
 };
 
-export default function ProductRowSection({ title, items, badgeCount, promoLabel, isHot }: ProductRowSectionProps) {
+export default function ProductRowSection({ title, items, badgeCount, promoLabel, isHot, onViewAllPress }: ProductRowSectionProps) {
   return (
     <View className="mt-8">
       <View className="px-4 flex-row justify-between items-center mb-4">
@@ -32,7 +33,7 @@ export default function ProductRowSection({ title, items, badgeCount, promoLabel
             </View>
           }
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onViewAllPress} disabled={!onViewAllPress}>
           <Text className="text-primary font-semibold text-xs flex-row items-center">View All <Feather name="chevron-right" size={12} /></Text>
         </TouchableOpacity>
       </View>

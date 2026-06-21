@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
-import { Dimensions, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, TextInput, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -13,11 +13,13 @@ import ProductRowSection from '../components/ProductRowSection';
 import { Link } from 'expo-router';
 
 
-const { width } = Dimensions.get('window');
+
 
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
+
+  const { width } = useWindowDimensions();
 
   const { colorScheme } = useColorScheme();
   const isDark = colorScheme === 'dark';
@@ -71,7 +73,7 @@ export default function HomeScreen() {
 
     // Clean up the timer whenever activeSlide changes or unmounts to prevent speed accumulation bugs
     return () => clearInterval(timer);
-  }, [activeSlide]);
+  }, [activeSlide, width]);
 
   return (
     <ScrollView

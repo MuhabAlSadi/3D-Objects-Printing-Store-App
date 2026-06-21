@@ -9,7 +9,7 @@ export default function ProfileScreen() {
   };
 
   return (
-    <View className="flex-1 items-center justify-center bg-white dark:backgrounddark">
+    <View className="flex-1 items-center justify-center bg-white dark:bg-backgrounddark">
       <Text className="text-black dark:text-white mb-4">
         Current theme: {colorScheme}
       </Text>
