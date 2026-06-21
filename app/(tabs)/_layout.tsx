@@ -1,35 +1,36 @@
-import { Tabs } from 'expo-router';
-import { Text, View } from 'react-native';
-// 1. Switch import from Ionicons to Feather
 import { Feather } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
+import { useColorScheme } from 'nativewind';
+import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
-  
-  // 2. Color adjustments to match the image perfectly
-  const activeBlue = '#0066FF'; // Vibrant Sapphire Blue
-  const inactiveGray = '#4A5568'; // Darker Slate Gray
-  const tabBgColor = '#FFFFFF'; 
-  const borderColor = '#E2E8F0';
+
+  const { colorScheme } = useColorScheme();
+  const isDark = colorScheme === 'dark';
+
+  const activeOrange = '#FF7518'; // Vibrant Orange
+  const inactiveGray = isDark ? '#F8FAFC' : '#4A5568'; // Darker Slate Gray
+  const tabBgColor = isDark ? '#334155' : '#FFFFFF';
+  const borderColor = isDark ? '#0F172A' : '#E2E8F0';
 
   const dynamicPaddingBottom = insets.bottom > 0 ? insets.bottom : 12;
-  const dynamicTabHeight = 56 + dynamicPaddingBottom; 
+  const dynamicTabHeight = 64 + dynamicPaddingBottom;
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: activeBlue,
-        tabBarInactiveTintColor: inactiveGray,
+        tabBarActiveTintColor: activeOrange, // Icons Tabs Color when active
+        tabBarInactiveTintColor: inactiveGray, // Icons Tabs Color when inactive 
         tabBarStyle: {
-          backgroundColor: tabBgColor,
-          borderTopColor: borderColor,
+          backgroundColor: tabBgColor, // The color of the Tabs Bar Background 
+          borderTopColor: borderColor, // The color of the top line of the bar
           borderTopWidth: 1,
           height: dynamicTabHeight,
           paddingBottom: dynamicPaddingBottom,
           paddingTop: 8,
-          // Subtle drop shadow matching the clean style
           elevation: 4,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: -1 },
@@ -87,7 +88,7 @@ export default function TabsLayout() {
               {/* This text element accurately places the item count 
                 directly underneath the icon basket just like your screenshot!
               */}
-              <Text style={{ color }} className="text-[11px] font-bold mt-0.5 leading-none">
+              <Text style={{ color }} className="text-[11px] font-bold mt-0.5 ml-1 leading-none">
                 0
               </Text>
             </View>
