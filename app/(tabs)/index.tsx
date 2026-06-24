@@ -115,9 +115,10 @@ export default function HomeScreen() {
         promoLabel="Up to 40% OFF"
       />
 
+        {/*We will program the suggestions based on algrothims later, for now it's just a design */}
       <ProductRowSection
         title="Suggestions"
-        items={filteredProducts.filter(p => p.isDiscounted)}
+        items={filteredProducts}
       />
 
       <ProductRowSection

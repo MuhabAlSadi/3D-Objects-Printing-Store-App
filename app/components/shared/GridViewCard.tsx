@@ -33,6 +33,7 @@ export default function GridViewCard({ product, isNew, isSale, isDark }: GridVie
                 <Image
                     source={{ uri: product.image }}
                     className="w-full h-full object-cover"
+                    resizeMode="cover"
                 />
 
                 {/* Floating Badge (Prioritizes 'Sale' if discounted, otherwise shows 'New') */}

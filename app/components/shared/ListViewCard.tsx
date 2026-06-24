@@ -79,7 +79,7 @@ return (
         <View className="flex-row items-center space-x-1">
           <Feather name="download" size={12} color="#64748B" />
           <Text className="text-xs font-bold text-slate-500 dark:text-slate-400 mx-1.5">
-            {product.downloads || 523}
+            {product.downloads ?? 0}
           </Text>
         </View>
       </View>
