@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import ProductCard from './ProductCard';
+import ProductCard from './shared/ProductCard';
 
 type ProductRowSectionProps = {
   title: string;
@@ -29,8 +29,8 @@ export default function ProductRowSection({ title, items, badgeCount, promoLabel
             </View>
           )}
           {isHot && <View className="bg-violet-100 px-3 py-1 rounded-md ml-2 border border-violet-200">
-              <Text className="text-violet-600 text-[10px] font-extrabold uppercase tracking-wider">Hot 🔥</Text>
-            </View>
+            <Text className="text-violet-600 text-[10px] font-extrabold uppercase tracking-wider">Hot 🔥</Text>
+          </View>
           }
         </View>
         <TouchableOpacity onPress={onViewAllPress} disabled={!onViewAllPress}>
@@ -44,7 +44,9 @@ export default function ProductRowSection({ title, items, badgeCount, promoLabel
         contentContainerStyle={{ paddingHorizontal: 16 }}
       >
         {items.map((product: any) => (
-          <ProductCard key={product.id} product={product} />
+          <View key={product.id} className="mr-4" >
+            <ProductCard key={product.id} product={product} view="Grid" />
+          </View>
         ))}
       </ScrollView>
     </View>
