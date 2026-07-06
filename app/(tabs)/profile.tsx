@@ -5,6 +5,8 @@ import {
   Image,
   Platform // 🚀 FIXED: Added Platform import
   ,
+
+
   ScrollView,
   Switch,
   Text,
@@ -13,10 +15,20 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { router } from 'expo-router';
+import { useAuth } from '../context/AuthContext';
+
 export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const { colorScheme, setColorScheme } = useColorScheme();
   const isDark = colorScheme === 'dark';
+
+  const { signOut, user } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.replace('/(auth)/sign-in');
+  };
 
   const toggleTheme = () => {
     setColorScheme(isDark ? 'light' : 'dark');
@@ -176,7 +188,7 @@ export default function ProfileScreen() {
           style={cardShadow} 
           className="bg-white dark:bg-slate-800 rounded-2xl px-4 border border-slate-50 dark:border-slate-700/50"
         >
-          <SettingRow icon="log-out" title="Log Out" danger={true} isLast={true} onPress={() => {}} />
+          <SettingRow icon="log-out" title="Log Out" danger={true} isLast={true} onPress={handleSignOut} />
         </View>
       </View>
     </ScrollView>
